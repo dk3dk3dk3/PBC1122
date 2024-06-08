@@ -1,7 +1,6 @@
 # 函式庫
 
 # 傳進來的爬蟲資料處理
-import numpy as np
 import pandas as pd
 
 # 日期資料處理
