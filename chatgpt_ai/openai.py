@@ -30,19 +30,3 @@ def chatgpt_response(prompt):
         prompt_response = response_dict[0]["message"]["content"]
     
     return prompt_response
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

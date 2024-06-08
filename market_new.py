@@ -45,7 +45,7 @@ def location_search(df, location):
     for i in range(len(df)):
         if location == df.loc[i, "location"]:
             location_list.append(i)
-            
+
     return location_list
     
 
@@ -80,7 +80,7 @@ def market_response(df, prompt):
     elif re.match(r".+ \d{4}/\d{2}/\d{2}-\d{2}", prompt): # location YYYY/MM/DD-DD
         location = prompt.split(" ")[0]
         prompt = prompt.replace(location + " ", "")
-        location_list = (df, location)
+        location_list = location_search(df, location)
         
         prompt_list = prompt.split("-")
         date1 = datetime.datetime.strptime(prompt_list[0], "%Y/%m/%d")
@@ -103,7 +103,9 @@ def market_response(df, prompt):
         date_list = date_search(df, date1, date2)
         # print(date1, date2)
         
-        
+    # print(date_list)
+    # print(location_list)
+    
     # 將結果存成list
     result_list = []
     
@@ -115,11 +117,14 @@ def market_response(df, prompt):
         for i in date_list:
             if i in location_list:
                 result_list.append(i)
-            
+    
+    print(result_list)
     result_len = len(result_list)
     
     # 避免訊息太長傳不出去，每10個結果為一個字串存到list裡
     for j in range(result_len // 10 + 1):
+        if 10 * j == result_len:
+            break
         answer.append("")
         
         for i in range(10 * j, 10 * j + 10):
