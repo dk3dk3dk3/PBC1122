@@ -4,3 +4,4 @@
 discord_api.py
 market.py
 project.py
+token.env
