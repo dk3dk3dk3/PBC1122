@@ -9,7 +9,7 @@ from PBC1122 import market_new
 os.chdir(r"C:\Users\emily\OneDrive\桌面\PBC1122")
 # print(os.getcwd())
 
-
+# Token存取位置
 load_dotenv(r"C:\Users\emily\OneDrive\桌面\PBC1122\token.env")
 
 discord_token = os.getenv("DISCORD_TOKEN")
@@ -25,6 +25,7 @@ class My_Client(discord.Client):
         # print(message.content)
         
         if message.author == self.user:
+            print(self.user)
             return
         
         command, user_message = None, None
@@ -37,6 +38,7 @@ class My_Client(discord.Client):
                     user_message = message.content.replace(text, "")
                     # print(command, user_message)
             
+            # 判斷是否有Hi字樣，以及將Hi和後面的字串內容切割開
             if command in ["Hi", "hi"]:
                 await message.channel.send("抱歉，目前無法使用openai\n若要使用查詢市集功能，請輸入查詢+空格")
                 
@@ -82,6 +84,3 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 client = My_Client(intents=intents)
-
-
-

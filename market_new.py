@@ -15,30 +15,22 @@ import re
 import os
 os.chdir(r"C:\Users\emily\OneDrive\桌面\PBC1122")
 
+
+# 匯入爬蟲結果的csv檔
 data_name = r"markets_data.csv"
 data = pd.read_csv(data_name)
 df = data.copy()
-# print(df)
+
+# 日期欄位轉成datetme
 df['start_date'] = pd.to_datetime(df['start_date'], format='%Y-%m-%d')
 df['end_date'] = pd.to_datetime(df['end_date'], format='%Y-%m-%d')
-# df["start_year"] = df["start_date"].dt.year
 
 
-# 搜尋日期後回傳第幾列符合
+# 搜尋日期後回傳哪幾列符合
 def date_search(df, start_date, end_date=0):
     date_list = []
     
-    # 單一日期
-    if end_date == 0:
-        for i in range(len(df)):
-            if start_date >= df.loc[i, 'start_date'] and start_date <= df.loc[i, 'end_date']:
-                date_list.append(i)
-            
-            
-            
-    else:
-    
-        for i in range(len(df)):
+    for i in range(len(df)):
             if ((df.loc[i, 'start_date'] >= start_date and df.loc[i, 'start_date'] <= end_date)
                     or (df.loc[i, 'end_date'] >= start_date and df.loc[i, 'end_date'] <= end_date)
                     or (df.loc[i, 'start_date'] < start_date and df.loc[i, 'end_date'] > end_date)):
@@ -47,7 +39,7 @@ def date_search(df, start_date, end_date=0):
     return date_list
     
 
-# 搜尋地點後回傳第幾列符合
+# 搜尋地點後回傳哪幾列符合
 def location_search(df, location):
     location_list = []
     for i in range(len(df)):
@@ -57,21 +49,18 @@ def location_search(df, location):
     return location_list
     
 
-def month_search(month):
-    start_date = 0
-    
-    
-
+# 訊息回覆內容
 def market_response(df, prompt):
     answer = []
+    
     # 四種查詢：
     # 查詢 地點
     # 查詢 特定日期
     # 查詢 特定月份
     # 查詢 地點 特定日期
     
-    date_list = []
-    location_list = []
+    date_list = []  # 特定日期、特定月份的查詢結果
+    location_list = []  # 地點的查詢結果
     
     print(prompt)
     
@@ -87,7 +76,6 @@ def market_response(df, prompt):
         date2 = date1.replace(day=int(prompt_list[1]))
         date_list = date_search(df, date1, date2)
             
-    
     # 地點 特定日期
     elif re.match(r".+ \d{4}/\d{2}/\d{2}-\d{2}", prompt): # location YYYY/MM/DD-DD
         location = prompt.split(" ")[0]
@@ -115,7 +103,8 @@ def market_response(df, prompt):
         date_list = date_search(df, date1, date2)
         # print(date1, date2)
         
-    
+        
+    # 將結果存成list
     result_list = []
     
     if location_list == []:
@@ -144,9 +133,8 @@ def market_response(df, prompt):
     
     return answer
 
+
 # 測試用
 # text = input()
-
 # answer = market_response(df, text)
-
 # print(answer)

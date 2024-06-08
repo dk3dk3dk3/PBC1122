@@ -10,6 +10,7 @@ load_dotenv(r"C:\Users\emily\OneDrive\桌面\PBC1122\token.env")
 
 openai.api_key = os.getenv("CHATGPT_API_KEY")
 
+# 串gpt-3.5-turbo的api
 def chatgpt_response(prompt):
     response = openai.chat.completions.create(
         model="gpt-3.5-turbo",
