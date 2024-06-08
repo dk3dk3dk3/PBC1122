@@ -13,7 +13,6 @@ os.chdir(r"C:\Users\emily\OneDrive\桌面\PBC1122")
 load_dotenv(r"C:\Users\emily\OneDrive\桌面\PBC1122\token.env")
 
 discord_token = os.getenv("DISCORD_TOKEN")
-# print(discord_token)
 
 df = market_new.df
 
