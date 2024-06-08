@@ -4,13 +4,10 @@
 import numpy as np
 import pandas as pd
 
-# 忽略warning messages
-import warnings
-warnings.filterwarnings('ignore')
-
 # 日期資料處理
 import datetime
 
+# 正則表達式
 import re
 import os
 os.chdir(r"C:\Users\emily\OneDrive\桌面\PBC1122")
@@ -102,10 +99,8 @@ def market_response(df, prompt):
         date2 = next_month - datetime.timedelta(days=1)
         date_list = date_search(df, date1, date2)
         # print(date1, date2)
-        
-    # print(date_list)
-    # print(location_list)
-    
+
+
     # 將結果存成list
     result_list = []
     
